@@ -5,7 +5,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import vlaship.price.h2.exception.DownloadException;
-import vlaship.price.h2.service.DownloadCsv;
+import vlaship.price.h2.service.DownloadCsvService;
 
 import java.net.CookieManager;
 import java.net.URI;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-public class DownloadCsvImpl implements DownloadCsv {
+public class DownloadCsvServiceImpl implements DownloadCsvService {
 
     @Value("${download.query.value.login}")
     private String queryValueLogin;
