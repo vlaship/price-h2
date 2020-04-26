@@ -4,16 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Data
-@Accessors(chain = true)
 @Entity
 @Builder
 @NoArgsConstructor
@@ -28,6 +23,7 @@ public class Product {
     private String subCategory;
     private String vendorCode;
     private String nameProduct;
-    private BigDecimal price;
+    private BigDecimal recommendedPrice;
+    private BigDecimal ourPrice;
 }
 
