@@ -69,9 +69,9 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm">
-                <form action="#" th:action="@{/search}"  method="get">
+                <form action="#" th:action="@{/search}" method="get">
                     <div class="input-group mb-3">
-                        <input type="text" name="searchTerm" th:attr="value=${searchTerm}"
+                        <input type="text" name="searchTerm" th:value="${searchTerm}"
                                class="form-control form-control-sm" placeholder="Продукт"/>
                         <div class="input-group-append">
                             <input type="submit" value="поиск" class="btn btn-primary btn-sm"/>
@@ -114,7 +114,7 @@
 <!-- header - end -->
 <!-- table - start -->
 <div class="container-fluid">
-    <div th:if="${!products.empty}">
+    <div th:if="${!products.isEmpty()}">
         <div class="container-fluid">
             <table class="table table-bordered table-sm table-striped">
                 <thead>
@@ -122,7 +122,7 @@
                     <th>Артикул</th>
                     <th>Продукт</th>
                     <th class="text-secondary">Цена</th>
-                    <th class="text-info">-23%</th>
+                    <th class="text-info" th:text="'-'+${@environment.getProperty('price.our-discount')}+'%'"></th>
                     <th class="text-success" style="width: 120px">
                         <div class="form-row">
                             <div class="col">
@@ -173,17 +173,17 @@
                         </label>
                     </td>
                     <td style="width: 50px" align="right" class="text-info align-middle">
-                        <label th:attr="id='price_' + ${product.id}" th:text="${product.ourPrice}">
+                        <label th:id="'price_' + ${product.id}" th:text="${product.ourPrice}">
                             ourPrice
                         </label>
                     </td>
                     <td align="right">
-                        <label th:attr="id='priceCommon_' + ${product.id}" class="priceCommon text-success"
+                        <label th:id="'priceCommon_' + ${product.id}" class="priceCommon text-success"
                                th:value="${product.id}">
                         </label>
-                        <small th:attr="id='priceNoNDS_' + ${product.id}"></small>
+                        <small th:id="'priceNoNDS_' + ${product.id}"></small>
                     </td>
-                    <input type="hidden" th:value="${product.vendorCode}" th:attr="name='prod_' + ${product.id}">
+                    <input type="hidden" th:value="${product.vendorCode}" th:name="'prod_' + ${product.id}">
                 </tr>
                 </tbody>
             </table>
