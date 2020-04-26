@@ -18,6 +18,8 @@ public class UploadDataServiceImpl implements UploadDataService {
 
     @Override
     public void upload(List<Product> products) {
+        log.info("start uploading ...");
         productRepository.saveAll(products);
+        log.info("uploading is over");
     }
 }

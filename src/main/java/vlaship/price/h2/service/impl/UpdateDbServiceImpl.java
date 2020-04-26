@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import vlaship.price.h2.service.DownloadCsvService;
 import vlaship.price.h2.service.ParserService;
 import vlaship.price.h2.service.UpdateDbService;
+import vlaship.price.h2.service.UploadDataService;
 
 @Slf4j
 @Service
@@ -14,13 +15,14 @@ public class UpdateDbServiceImpl implements UpdateDbService {
 
     private final DownloadCsvService downloadCsvService;
     private final ParserService parserService;
+    private final UploadDataService uploadDataService;
 
     @Override
     public void update() {
-        log.info("Start updating db");
-
+        log.info("Start updating DB ... ");
         final var lines = downloadCsvService.download();
         final var products = parserService.parse(lines);
-
+        uploadDataService.upload(products);
+        log.info("updating DB is over");
     }
 }

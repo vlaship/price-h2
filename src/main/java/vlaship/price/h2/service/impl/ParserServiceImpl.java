@@ -15,6 +15,7 @@ public class ParserServiceImpl implements ParserService {
 
     @Override
     public List<Product> parse(final List<String> lines) {
+        log.info("Start parsing ...");
         return lines.stream()
                 .map(this::parse)
                 .collect(Collectors.toList());
