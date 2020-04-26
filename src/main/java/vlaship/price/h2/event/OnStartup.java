@@ -18,8 +18,13 @@ public class OnStartup {
     private final UserRepository userRepository;
     private final PasswordEncoder encoder;
 
+    @Value("${user.login}")
+    private String login;
+    @Value("${user.pass}")
+    private String pass;
+
     @EventListener(ApplicationReadyEvent.class)
-    public void addUser(@Value("user.login") String login, @Value("user.pass") String pass) {
+    public void addUser() {
         userRepository.save(User.builder().name(login).password(encoder.encode(pass)).build());
     }
 
