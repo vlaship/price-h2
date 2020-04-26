@@ -59,5 +59,9 @@ download:
   url:
     auth: ${DL_AUTH_PATH:http://url/signin/}
     file: ${DL_FILE_PATH:http://url/csv/}
-
-
+# ===============================
+# = USER
+# ===============================
+user:
+  login: ${LOGIN:login}
+  pass: ${PASS:pass}
