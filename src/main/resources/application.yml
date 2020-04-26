@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: Price H2
+  main:
+    banner-mode: 'off'
+
+download:
+  query:
+    value:
+      login: login
+      password: pass
+    param:
+      login: param-login
+      password: param-password
+  url:
+    auth: http://url/signin/
+    file: http://url/csv/
+  local:
+    path: file.csv
+
+upload:
+
