@@ -7,7 +7,7 @@ import vlaship.price.h2.entity.Product;
 
 import java.util.List;
 
-public interface ProductRepository extends JpaRepository<Long, Product> {
+public interface ProductRepository extends JpaRepository<Product, Long> {
     Page<Product> findAllByNameProductIsLike(String filter, Pageable pageable);
 
     List<Product> findAllByNameProductIsLike(String filter);

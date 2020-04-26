@@ -51,15 +51,13 @@ logging:
 download:
   query:
     value:
-      login: login
-      password: pass
+      login: ${DL_LOGIN:login}
+      password: ${DL_PASS:pass}
     param:
-      login: param-login
-      password: param-password
+      login: ${DL_PARAM_LOGIN:param-login}
+      password: ${DL_PARAM_PASS:param-password}
   url:
-    auth: http://url/signin/
-    file: http://url/csv/
-  local:
-    path: file.csv
+    auth: ${DL_AUTH_PATH:http://url/signin/}
+    file: ${DL_FILE_PATH:http://url/csv/}
 
 
