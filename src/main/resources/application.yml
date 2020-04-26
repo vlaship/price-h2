@@ -31,7 +31,7 @@ spring:
       ddl-auto: create
     properties:
       hibernate:
-        show_sql: true
+        show_sql: false
   # ===============================
   # = H2 Settings
   # ===============================
@@ -46,7 +46,7 @@ spring:
 # = WEB
 # ===============================
 server:
-  port: 8080
+  port: 8090
 # ===============================
 # = LOGGING
 # ===============================
