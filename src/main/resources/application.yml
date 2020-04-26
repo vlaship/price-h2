@@ -1,3 +1,13 @@
+# ===============================
+# = APP INFO
+# ===============================
+app:
+  name: ${APP_NAME:app}
+  version: ${APP_VER:0.2.0}
+  url: ${APP_URL:http://domain.com}
+# ===============================
+# = SPRING
+# ===============================
 spring:
   application:
     name: Price H2
@@ -65,3 +75,13 @@ download:
 user:
   login: ${LOGIN:login}
   pass: ${PASS:pass}
+# ===============================
+# = WEB
+# ===============================
+web:
+  query: ${QUERY:http://domain.com/?query=}
+# ===============================
+# = FINANCE
+# ===============================
+price:
+  our-discount: ${OUR_DISCOUNT:10}
