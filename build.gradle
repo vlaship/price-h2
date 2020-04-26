@@ -2,6 +2,8 @@ plugins {
     id 'org.springframework.boot' version '2.2.6.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
     id 'java'
+    id 'idea'
+    id 'com.palantir.docker' version '0.25.0'
 }
 
 group = 'vlaship.price'
@@ -17,6 +19,7 @@ configurations {
         extendsFrom annotationProcessor
     }
 }
+
 repositories {
     mavenCentral()
 }
@@ -31,13 +34,17 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'
     implementation 'org.apache.commons:commons-lang3'
-
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-    }
-    testImplementation 'org.springframework.security:spring-security-test'
 }
 
-test {
-    useJUnitPlatform()
+// tag::task[]
+task unpack(type: Copy) {
+    dependsOn bootJar
+    from(zipTree(tasks.bootJar.outputs.files.singleFile))
+    into("build/dependency")
 }
+docker {
+    name "${project.group}/${bootJar.baseName}"
+    copySpec.from(tasks.unpack.outputs).into("dependency")
+    buildArgs(['DEPENDENCY': "dependency"])
+}
+// end::task[]
