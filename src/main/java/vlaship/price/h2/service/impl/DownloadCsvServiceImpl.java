@@ -12,8 +12,8 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.Charset;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -40,7 +40,7 @@ public class DownloadCsvServiceImpl implements DownloadCsvService {
                     .cookieHandler(new CookieManager())
                     .build();
 
-            log.info("logging ...");
+            log.info("logging...");
 
             httpClient.send(
                     HttpRequest.newBuilder()
@@ -53,12 +53,11 @@ public class DownloadCsvServiceImpl implements DownloadCsvService {
 
             final var send = httpClient.send(
                     HttpRequest.newBuilder().uri(URI.create(urlFile)).build(),
-                    HttpResponse.BodyHandlers.ofLines()
+                    HttpResponse.BodyHandlers.ofString(Charset.forName("Windows-1251"))
             );
 
             log.info("Done with download...");
-
-            return send.body().collect(Collectors.toList());
+            return List.of(send.body().split("\n"));
 
         } catch (Exception ex) {
             log.error("{}", ExceptionUtils.getRootCause(ex).getClass().getSimpleName(), ex);
