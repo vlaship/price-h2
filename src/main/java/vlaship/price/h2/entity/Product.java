@@ -20,10 +20,15 @@ public class Product {
 
     private String brand;
     private String category;
-    private String subCategory;
     private String vendorCode;
     private String nameProduct;
     private BigDecimal recommendedPrice;
     private BigDecimal ourPrice;
+    @Enumerated(EnumType.STRING)
+    private Exist existM;
+    @Enumerated(EnumType.STRING)
+    private Exist existV;
+    @Enumerated(EnumType.STRING)
+    private Exist existP;
 }
 

@@ -66,6 +66,7 @@ download:
     param:
       login: ${DL_PARAM_LOGIN:param-login}
       password: ${DL_PARAM_PASS:param-password}
+      others: ${DL_PARAM_OTHERS:&AUTH_FORM=Y&TYPE=AUTH}
   url:
     auth: ${DL_AUTH_PATH:http://url/signin/}
     file: ${DL_FILE_PATH:http://url/csv/}
@@ -73,8 +74,12 @@ download:
 # = USER
 # ===============================
 user:
-  login: ${LOGIN:login}
-  pass: ${PASS:pass}
+  view:
+    login: ${USER_VIEW_LOGIN:login}
+    pass: ${USER_VIEW_PASS:pass}
+  add:
+    login: ${USER_ADD_LOGIN:login}
+    pass: ${USER_ADD_ASS:pass}
 # ===============================
 # = WEB
 # ===============================
@@ -85,3 +90,4 @@ web:
 # ===============================
 price:
   our-discount: ${OUR_DISCOUNT:10}
+  exist-value: ${EXIST_VALUE:Есть}

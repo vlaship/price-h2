@@ -1,8 +1,10 @@
 package vlaship.price.h2.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import vlaship.price.h2.entity.Exist;
 import vlaship.price.h2.entity.Product;
 import vlaship.price.h2.service.ParserService;
 
@@ -17,7 +19,7 @@ import java.util.stream.Collectors;
 public class ParserServiceImpl implements ParserService {
 
     @Value("${price.our-discount}")
-    private int discount;
+    private long discount;
 
     @Override
     public List<Product> parse(final List<String> lines) {
@@ -30,17 +32,38 @@ public class ParserServiceImpl implements ParserService {
     }
 
     private Product parse(final String line) {
-        final var elements = line.replace("\"", "").split(";");
-        final var price = BigDecimal.valueOf(Double.parseDouble(elements[5]));
-        return Product.builder()
-                .brand(elements[0])
-                .category(elements[1])
-                .subCategory(elements[2])
-                .vendorCode(elements[3])
-                .nameProduct(elements[4])
-                .recommendedPrice(price)
-                .ourPrice(price.multiply(BigDecimal.valueOf(100 - discount)).divide(BigDecimal.valueOf(100), RoundingMode.HALF_UP).setScale(2, RoundingMode.HALF_UP))
-                .build();
+        try {
+            final var elements = line
+                    .replace("\"", "")
+                    .replace("BYN", "")
+                    .split(";");
+            final var price = buildPrice(elements[4]);
+            return Product.builder()
+                    .brand(elements[0])
+                    .category(elements[1])
+                    .vendorCode(elements[2])
+                    .nameProduct(elements[3])
+                    .recommendedPrice(price)
+                    .ourPrice(buildOurPrice(price))
+                    .existM(Exist.get(elements[5]))
+                    .existV(Exist.get(elements[6]))
+                    .existP(Exist.get(elements[7]))
+                    .build();
+        } catch (Exception ex) {
+            log.error("[{}] - error: {}", line, ex.getMessage());
+            return null;
+        }
+    }
+
+    private BigDecimal buildPrice(String element) {
+        return StringUtils.isNotBlank(element) ? BigDecimal.valueOf(Double.parseDouble(element)) : BigDecimal.ZERO;
+    }
+
+    private BigDecimal buildOurPrice(final BigDecimal price) {
+        return price
+                .multiply(BigDecimal.valueOf(100 - discount))
+                .divide(BigDecimal.valueOf(100), RoundingMode.HALF_UP)
+                .setScale(2, RoundingMode.HALF_UP);
     }
 
 }

@@ -122,11 +122,12 @@
             <table class="table table-bordered table-sm table-striped">
                 <thead>
                 <tr>
-                    <th>Артикул</th>
-                    <th>Продукт</th>
-                    <th class="text-secondary">Цена</th>
-                    <th class="text-info" th:text="'-'+${@environment.getProperty('price.our-discount')}+'%'"></th>
-                    <th class="text-success" style="width: 120px">
+                    <th class="align-middle" style="text-align:center">Артикул</th>
+                    <th class="align-middle" style="text-align:left">Продукт</th>
+                    <th class="align-middle text-secondary" style="text-align:center">Цена</th>
+                    <th class="align-middle text-info" style="text-align:center"
+                        th:text="'-'+${@environment.getProperty('price.our-discount')}+'%'"></th>
+                    <th class="align-middle text-success" style="text-align:center; width: 120px">
                         <div class="form-row">
                             <div class="col">
                                 <input type="text" value="15" class="form-control form-control-sm" id="percentCommon"
@@ -141,6 +142,9 @@
                             </div>
                         </div>
                     </th>
+                    <th class="align-middle" style="text-align:center">M</th>
+                    <th class="align-middle" style="text-align:center">V</th>
+                    <th class="align-middle" style="text-align:center">P</th>
                 </tr>
                 </thead>
                 <!-- Modal -->
@@ -162,31 +166,40 @@
                 </div>
                 <tbody>
                 <tr th:each="product : ${products}">
-                    <td class="align-middle" style="width: 140px" align="center">
+                    <td class="align-middle" style="text-align:center;width: 140px">
                         <a th:href="${@environment.getProperty('web.query')} + ${product.vendorCode}" target="_blank"
                            th:text="${product.vendorCode}">
                             vendorCode
                         </a>
                     </td>
-                    <td class="align-middle" align="left" th:text="${product.nameProduct}">
+                    <td class="align-middle" style="text-align:left" th:text="${product.nameProduct}">
                     </td>
-                    <td style="width: 50px" align="right" class="text-secondary align-middle">
+                    <td class="text-secondary align-middle" style="text-align:right;width: 50px">
                         <label th:text="${product.recommendedPrice}">
                             price
                         </label>
                     </td>
-                    <td style="width: 50px" align="right" class="text-info align-middle">
+                    <td style="text-align:right;width: 50px" class="text-info align-middle">
                         <label th:id="'price_' + ${product.id}" th:text="${product.ourPrice}">
                             ourPrice
                         </label>
                     </td>
-                    <td align="right">
+                    <td style="text-align:right" class="text-info align-middle">
                         <label th:id="'priceCommon_' + ${product.id}" class="priceCommon text-success"
                                th:value="${product.id}">
                         </label>
                         <small th:id="'priceNoNDS_' + ${product.id}"></small>
                     </td>
                     <input type="hidden" th:value="${product.vendorCode}" th:name="'prod_' + ${product.id}">
+                    <td class="align-middle" style="text-align:center">
+                        <img th:src="${product.existM.pic}" height="16" width="16">
+                    </td>
+                    <td class="align-middle" style="text-align:center">
+                        <img th:src="${product.existV.pic}" height="16" width="16">
+                    </td>
+                    <td class="align-middle" style="text-align:center">
+                        <img th:src="${product.existP.pic}" height="16" width="16">
+                    </td>
                 </tr>
                 </tbody>
             </table>
