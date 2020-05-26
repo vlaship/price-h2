@@ -1,6 +1,6 @@
 FROM adoptopenjdk:14-jre-hotspot
 
-MAINTAINER: vlaship
+MAINTAINER vlaship
 
 ARG DEPENDENCY=build/dependency
 COPY ${DEPENDENCY}/BOOT-INF/lib /app/lib
