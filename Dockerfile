@@ -1,11 +1,13 @@
 FROM adoptopenjdk:14-jre-hotspot
 
-ARG DEPENDENCY=target/dependency
+ARG DEPENDENCY=build/dependency
 COPY ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY ${DEPENDENCY}/META-INF /app/META-INF
-COPY ${DEPENDENCY}/BOOT-INF/classes /app
+COPY ${DEPENDENCY}/BOOT-INF/classes /app  
 
-ENTRYPOINT ["java","-cp","app:app/lib/*","vlaship.price.h2.App"]
+ENV JAVA_OPTS=""
+
+ENTRYPOINT exec java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -cp app:app/lib/* vlaship.price.h2.App
 
 USER 1000
 
