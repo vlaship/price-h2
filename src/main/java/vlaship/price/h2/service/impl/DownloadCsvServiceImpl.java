@@ -8,11 +8,16 @@ import org.springframework.stereotype.Service;
 import vlaship.price.h2.exception.DownloadException;
 import vlaship.price.h2.service.DownloadCsvService;
 
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLParameters;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 import java.net.*;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.security.cert.X509Certificate;
 import java.util.List;
 
 @Slf4j
@@ -41,6 +46,8 @@ public class DownloadCsvServiceImpl implements DownloadCsvService {
                     .version(HttpClient.Version.HTTP_2)
                     .cookieHandler(buildCookieManager())
                     .followRedirects(HttpClient.Redirect.NORMAL)
+                    .sslContext(buildSslContext())
+                    .sslParameters(buildSslParameters())
                     .build();
 
             log.info("logging...");
@@ -73,6 +80,36 @@ public class DownloadCsvServiceImpl implements DownloadCsvService {
         }
     }
 
+    private SSLContext buildSslContext() {
+        final var trustAllCerts = new TrustManager[]{new X509TrustManager() {
+
+            public X509Certificate[] getAcceptedIssuers() {
+                return null;
+            }
+
+            public void checkClientTrusted(X509Certificate[] certs, String authType) {
+            }
+
+            public void checkServerTrusted(X509Certificate[] certs, String authType) {
+            }
+        }
+        };
+
+        try {
+            final var sc = SSLContext.getInstance("SSL");
+            sc.init(null, trustAllCerts, new java.security.SecureRandom());
+            return sc;
+        } catch (Exception e) {
+            throw new IllegalStateException();
+        }
+    }
+
+    private SSLParameters buildSslParameters() {
+        final var sslParams = new SSLParameters();
+        sslParams.setEndpointIdentificationAlgorithm("");
+        return sslParams;
+    }
+
     private String buildBody() {
         return queryParamLogin + "=" + queryValueLogin
                 + "&" + queryParamPassword + "=" + queryValuePassword
@@ -85,4 +122,5 @@ public class DownloadCsvServiceImpl implements DownloadCsvService {
         cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ORIGINAL_SERVER);
         return cookieManager;
     }
+
 }
