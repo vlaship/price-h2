@@ -1,6 +1,6 @@
 FROM adoptopenjdk:14-jre-hotspot
 
-MAINTAINER vlaship
+MAINTAINER vlaship@outlook.com
 
 ARG DEPENDENCY=build/dependency
 COPY ${DEPENDENCY}/BOOT-INF/lib /app/lib

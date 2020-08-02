@@ -23,6 +23,6 @@ public class UpdateDbServiceImpl implements UpdateDbService {
         final var lines = downloadCsvService.download();
         final var products = parserService.parse(lines);
         uploadDataService.upload(products);
-        log.info("updating DB is over");
+        log.info("DB has been updated");
     }
 }
