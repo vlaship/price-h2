@@ -1,12 +1,12 @@
 plugins {
-    id 'org.springframework.boot' version '2.3.1.RELEASE'
+    id 'org.springframework.boot' version '2.3.2.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
     id 'java'
     id 'idea'
 }
 
 group = 'vlaship.price'
-version = '0.2.0-SNAPSHOT'
+version = '0.3.0-SNAPSHOT'
 sourceCompatibility = '14'
 
 configurations {
@@ -34,6 +34,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.apache.commons:commons-lang3'
 
+    runtimeOnly 'org.flywaydb:flyway-core'
+    runtimeOnly 'mysql:mysql-connector-java'
     runtimeOnly 'com.h2database:h2'
 }
 
