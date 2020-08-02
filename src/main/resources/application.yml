@@ -3,7 +3,7 @@
 # ===============================
 app:
   name: ${APP_NAME:app}
-  version: ${APP_VER:0.2.1}
+  version: ${APP_VER:0.2.2}
   url: ${APP_URL:http://domain.com}
 # ===============================
 # = SPRING
