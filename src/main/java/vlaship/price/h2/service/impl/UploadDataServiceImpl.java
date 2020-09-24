@@ -22,6 +22,7 @@ public class UploadDataServiceImpl implements UploadDataService {
     public void upload(List<Product> products) {
         log.info("deleting data ...");
         productRepository.deleteAll();
+        productRepository.flush();
         log.info("start uploading ...");
         productRepository.saveAll(products);
         log.info("uploading has been completed");
