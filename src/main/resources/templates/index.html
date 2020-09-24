@@ -55,6 +55,13 @@
                     <div class="input-group mb-3">
                         <input type="text" name="searchTerm" th:value="${searchTerm}"
                                class="form-control form-control-sm" placeholder="Продукт"/>
+                        <!--                        <input type="hidden" name="limit" value="100">-->
+                        <div class="input-group-append">
+                            <select class="form-control form-control-sm" name="size">
+                                <option>100</option>
+                                <option>200</option>
+                                <option>500</option>
+                            </select></div>
                         <div class="input-group-append">
                             <input type="submit" value="поиск" class="btn btn-primary btn-sm"/>
                         </div>
