@@ -1,4 +1,4 @@
-FROM adoptopenjdk:14-jre-hotspot
+FROM bellsoft/liberica-openjdk-alpine:15
 
 MAINTAINER vlaship@outlook.com
 

@@ -1,6 +1,8 @@
 package vlaship.price.h2.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,9 +30,12 @@ public class RootController {
     }
 
     @GetMapping("/search")
-    public ModelAndView search(@RequestParam String searchTerm) {
-        final var products = productRepository.findByNameProductContainingIgnoreCase(searchTerm);
+    public ModelAndView search(@RequestParam String searchTerm, Pageable pageable) {
         final var modelAndView = defaultModel();
+        if (StringUtils.isBlank(searchTerm)) return modelAndView;
+        modelAndView.addObject("searchTerm", searchTerm);
+        if (searchTerm.length() < 3) return modelAndView;
+        final var products = productRepository.findByNameProductContainingIgnoreCase(searchTerm, pageable);
         modelAndView.addObject("products", products);
         modelAndView.addObject("searchTerm", searchTerm);
         return modelAndView;
