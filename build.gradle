@@ -43,6 +43,3 @@ task unpack(type: Copy) {
     into("build/dependency")
 }
 
-bootJar {
-    launchScript()
-}
