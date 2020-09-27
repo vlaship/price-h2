@@ -19,36 +19,13 @@ public class UploadDataServiceImpl implements UploadDataService {
 
     private final ProductRepository productRepository;
 
-    @Value("${product.save-at-once}")
-    private int countProductSavesAtOnce;
-
     @Override
     public void upload(final List<Product> products) {
         log.info("deleting data ...");
         productRepository.deleteAll();
-        productRepository.flush();
         log.info("start uploading ...");
-        saveAll(products);
+        productRepository.saveAll(products);
         log.info("uploading has been completed");
     }
 
-    private void saveAll(final List<Product> products) {
-        final var parts = products.size() / countProductSavesAtOnce;
-        final var mod = products.size() % countProductSavesAtOnce;
-
-        for (int i = 0; i < parts; i++) {
-            final var startIndex = i * countProductSavesAtOnce;
-            final var endIndex = startIndex + countProductSavesAtOnce;
-            final var subList = products.subList(startIndex, endIndex);
-            productRepository.saveAll(subList);
-            productRepository.flush();
-        }
-
-        if (mod > 0) {
-            final var startIndex = parts * countProductSavesAtOnce;
-            final var endIndex = startIndex + mod;
-            final var subList = products.subList(startIndex, endIndex);
-            productRepository.saveAll(subList);
-        }
-    }
 }
