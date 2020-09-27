@@ -42,3 +42,7 @@ task unpack(type: Copy) {
     from(zipTree(tasks.bootJar.outputs.files.singleFile))
     into("build/dependency")
 }
+
+bootJar {
+    launchScript()
+}
