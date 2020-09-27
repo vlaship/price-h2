@@ -50,7 +50,7 @@ public class DownloadCsvServiceImpl implements DownloadCsvService {
                     .sslParameters(buildSslParameters())
                     .build();
 
-            log.info("logging...");
+            log.info("logging in...");
 
             httpClient.send(
                     HttpRequest.newBuilder()

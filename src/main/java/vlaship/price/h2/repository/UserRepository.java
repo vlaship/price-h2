@@ -1,10 +1,11 @@
 package vlaship.price.h2.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import vlaship.price.h2.entity.User;
 
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends MongoRepository<User, ObjectId> {
     Optional<User> findByName(String name);
 }
