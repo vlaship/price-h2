@@ -28,8 +28,8 @@ server:
 logging:
   level:
     root: info
-    sql:  info
-    web:  info
+    sql: info
+    web: info
 # ===============================
 # = DOWNLOAD
 # ===============================
@@ -65,6 +65,9 @@ web:
 # ===============================
 price:
   our-discount: ${OUR_DISCOUNT:10}
+
+product:
+  save-at-once: ${SAVE_PRODUCTS_AT_ONCE:1000}
 
 ---
 spring:
