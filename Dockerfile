@@ -9,7 +9,7 @@ COPY ${DEPENDENCY}/BOOT-INF/classes /app
 
 ENV JAVA_OPTS=""
 
-ENTRYPOINT exec java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -cp app:app/lib/* vlaship.price.h2.App
+ENTRYPOINT exec java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -cp app:app/lib/* vlaship.price.App
 
 USER 1000
 

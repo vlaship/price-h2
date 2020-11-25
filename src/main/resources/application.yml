@@ -11,18 +11,11 @@ app:
 # ===============================
 spring:
   application:
-    name: Price MongoDB
+    name: PriceList
   main:
     banner-mode: 'off'
   profiles:
     active: dev
-
-  # ===============================
-  # = MONGODB
-  # ===============================
-  data:
-    mongodb:
-      database: ${DB_NAME:price_db}
 
 # ===============================
 # = WEB
