@@ -3,7 +3,7 @@
 # ===============================
 app:
   name: ${APP_NAME:app}
-  version: ${APP_VER:0.3.0}
+  version: ${APP_VER:0.3.1}
   url: ${APP_URL:http://domain.com}
 
 # ===============================
