@@ -36,9 +36,8 @@ public class ParserServiceImpl implements ParserService {
         try {
             final var elements = line
                     .replace("\"", "")
-                    .replace("BYN", "")
                     .split(";");
-            final var price = buildPrice(elements[4]);
+            final var price = parsePrice(elements[4].replaceAll("[A-Z]+", ""));
             return Product.builder()
                     .id(UUID.randomUUID())
                     .vendorCode(elements[2])
@@ -55,7 +54,7 @@ public class ParserServiceImpl implements ParserService {
         }
     }
 
-    private BigDecimal buildPrice(String element) {
+    private BigDecimal parsePrice(String element) {
         return StringUtils.isNotBlank(element) ? BigDecimal.valueOf(Double.parseDouble(element)) : BigDecimal.ZERO;
     }
 
@@ -65,5 +64,4 @@ public class ParserServiceImpl implements ParserService {
                 .divide(BigDecimal.valueOf(100), RoundingMode.HALF_UP)
                 .setScale(2, RoundingMode.HALF_UP);
     }
-
 }
