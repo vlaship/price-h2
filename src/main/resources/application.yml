@@ -3,7 +3,7 @@
 # ===============================
 app:
   name: ${APP_NAME:app}
-  version: ${APP_VER:0.3.1}
+  version: ${APP_VER:0.3.2}
   url: ${APP_URL:http://domain.com}
 
 # ===============================
@@ -63,4 +63,6 @@ web:
 # ===============================
 price:
   our-discount: ${OUR_DISCOUNT:10}
-
+currency:
+  cur-id: 292 # Euro
+  base-url: https://www.nbrb.by/api/exrates/rates/${currency.cur-id}
